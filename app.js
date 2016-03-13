@@ -1,6 +1,6 @@
 require('dotenv').load();
 var express = require('express');
-var multer = require('multer'); 
+var multer = require('multer');
 var path = require('path');
 var http = require('http');
 var formidable = require('formidable');
@@ -12,8 +12,8 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 var mongoose = require('mongoose');
-var passport = require('passport'); 
-var LocalStrategy = require('passport-local').Strategy; 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var routes = require('./routes/index');
 
 //||||||||||||||||||||||||||--
@@ -31,7 +31,7 @@ app.set('view engine', 'ejs');
 //||||||||||||||||||||||||||--
 // CREATE MONGO DB
 //||||||||||||||||||||||||||--
-var mongoURI = 'mongodb://localhost/fitgeneration';
+var mongoURI = process.env.MONGOLAB_URI;
 if (process.env.NODE_ENV === 'production') {
   mongoURI = process.env.MONGOLAB_URI
 };
@@ -55,12 +55,12 @@ app.listen(process.env.PORT || 3000);
 
 // auth middleware
 app.use(require('express-session')({
-    secret: 'keyboard cat', 
+    secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
 }));
-app.use(passport.initialize()); 
-app.use(passport.session()); 
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.locals.title = 'fitGeneration';
 
